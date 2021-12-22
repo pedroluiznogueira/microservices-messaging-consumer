@@ -1,6 +1,7 @@
 package com.github.pedroluiznogueira.microservices.messagingconsumer.configuration;
 
 import com.github.pedroluiznogueira.microservices.messagingconsumer.rabbitmq.RabbitMQMessageListener;
+import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.core.ExchangeBuilder;
 import org.springframework.amqp.core.Queue;
@@ -25,9 +26,20 @@ public class RabbitMQConfig {
     @Bean
     Exchange myExchange() {
         return ExchangeBuilder
-                .topicExchange("MyExchange")
+                .topicExchange("MyTopicExchange")
                 .durable(true)
                 .build();
+    }
+
+    @Bean
+    Binding binding() {
+        return new Binding(
+                MyQueue,
+                Binding.DestinationType.QUEUE,
+                "MyTopicExchange",
+                "topic",
+                null
+        );
     }
 
     // connection to the queue
