@@ -23,5 +23,4 @@ public class RabbitMQQueueConfig {
                 .exclusive()
                 .build();
     }
-
 }
