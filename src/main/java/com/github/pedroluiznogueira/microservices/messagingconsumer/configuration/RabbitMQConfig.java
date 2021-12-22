@@ -1,8 +1,11 @@
 package com.github.pedroluiznogueira.microservices.messagingconsumer.configuration;
 
+import com.github.pedroluiznogueira.microservices.messagingconsumer.rabbitmq.RabbitMQMessageListener;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,5 +31,14 @@ public class RabbitMQConfig {
         return cachingConnectionFactory;
     }
 
-    // bind the queue, connection and listener class
+    // bind the queue(s), connection and listener class
+    @Bean
+    MessageListenerContainer messageListenerContainer() {
+        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
+        simpleMessageListenerContainer.setConnectionFactory(connectionFactory());
+        simpleMessageListenerContainer.setQueues(myQueue());
+        simpleMessageListenerContainer.setMessageListener(new RabbitMQMessageListener());
+
+        return simpleMessageListenerContainer;
+    }
 }
