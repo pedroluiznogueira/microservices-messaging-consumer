@@ -5,4 +5,8 @@ import org.springframework.amqp.core.MessageListener;
 
 public class RabbitMQMessageListener implements MessageListener {
 
+    @Override
+    public void onMessage(Message message) {
+
+    }
 }
