@@ -10,15 +10,15 @@ public class RabbitMQQueueConfig {
 
     // simple way of creating queues
     @Bean
-    Queue firstQueue() {
-        return new Queue("FirstQueue", false);
+    Queue myFirstQueue() {
+        return new Queue("MyFirstQueue", false);
     }
 
     // creating queue with queue builder
     @Bean
-    Queue secondQueue() {
+    Queue MySecondQueue() {
         return QueueBuilder
-                .durable("SecondQueue")
+                .durable("MySecondQueue")
                 .autoDelete()
                 .exclusive()
                 .build();
