@@ -34,4 +34,15 @@ public class RabbitMQExchangeConfig {
                 .internal()
                 .build();
     }
+
+    // fanout exchange
+    @Bean
+    Exchange fanoutExchange() {
+        return ExchangeBuilder
+                .fanoutExchange("FanoutExchange")
+                .autoDelete()
+                .durable(false)
+                .internal()
+                .build();
+    }
 }
